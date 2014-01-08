@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GenData</title>
+
+    <script type="text/javascript" src="/apps/2.0rc2/sdk.js"></script>
+
+    <script type="text/javascript">
+        Rally.onReady(function () {
+                Ext.define("CustomApp",{extend:"Rally.app.App",componentCls:"app",items:[{html:'<a href="https://help.rallydev.com/apps/2.0rc2/doc/">App SDK 2.0rc2 Docs</a><br><br><h1>Rally Caveman Data Record Creator</h1>'}],launch:function(){var app=this,projectComboBox=Ext.widget("rallycombobox",{fieldLabel:"Project: ",storeConfig:{autoLoad:!0,model:"Project"}});this.add(projectComboBox);var addUserStoryPanel=Ext.create("Ext.panel.Panel",{title:"Create User Stories",items:[{xtype:"rallytextfield",fieldLabel:"BaseName: "},{xtype:"rallynumberfield",fieldLabel:"Count: ",minValue:1,maxValue:99,value:10},{xtype:"toolbar",items:[{xtype:"button",text:"Add",handler:function(){console.log("Button pressed")}}]}],renderTo:Ext.getBody()});this.add(addUserStoryPanel);var userStoryStore=Ext.create("Rally.data.wsapi.Store",{model:"User Story",listeners:{load:function(store,data,success){console.log("Data Loaded",store,data,success)}}})}});
+
+            Rally.launchApp('CustomApp', {
+                name:"GenData",
+	            parentRepos:""
+            });
+
+        });
+    </script>
+
+
+    <style type="text/css">
+        .app {
+     /* Add app styles here */
+}
+
+    </style>
+</head>
+<body></body>
+</html>
