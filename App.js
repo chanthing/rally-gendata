@@ -19,8 +19,11 @@ Ext.define('CustomApp', {
     */
     launch: function() {
         var app = this;
+        var i;
+	var projectComboBox, addUserStoryPanel, userStoryStore;
+	var currentBaseName, currentCount, userStoryName;
 
-        var projectComboBox = Ext.widget('rallycombobox', {
+        projectComboBox = Ext.widget('rallycombobox', {
                                         fieldLabel: 'Project: ',
                                         storeConfig: {
                                             autoLoad: true,
@@ -28,13 +31,25 @@ Ext.define('CustomApp', {
                                         } });
         this.add(projectComboBox);
 
-        var addUserStoryPanel = Ext.create('Ext.panel.Panel', {
+        addUserStoryPanel = Ext.create('Ext.panel.Panel', {
                                 title: 'Create User Stories',
                                 items: [
                                         {xtype: 'rallytextfield',
+/*
+					 listeners: [{change: function(this, newValue, oldValue, eOpts) {
+							  console.log('Count field changed from ', oldValue, ' to ', newValue);
+                                                          userStoryName = newValue;
+                                                      }}],
+*/
                                          fieldLabel: 'BaseName: '},
                                         {xtype: 'rallynumberfield',
                                          fieldLabel: 'Count: ',
+/*
+					 listeners: [{change: function(this, newValue, oldValue, eOpts) {
+							  console.log('Count field changed from ', oldValue, ' to ', newValue);
+                                                          currentCount = newValue;
+                                                      }}],
+*/
                                          minValue: 1,
                                          maxValue: 99,
                                          value: 10},
@@ -44,7 +59,10 @@ Ext.define('CustomApp', {
                                                   handler: function() {
                                                           // Do the business
                                                           console.log('Button pressed');
-
+                                                          for (i = 1; i <= currentCount; i++) {
+                                                              name = currentBaseName + i;
+                                                              console.log('Creating user story: ', storyName); 
+                                                          }
                                                         }
                                                 }]}
                                         ],
@@ -52,7 +70,7 @@ Ext.define('CustomApp', {
                                 });
         this.add(addUserStoryPanel);
 
-        var userStoryStore = Ext.create('Rally.data.wsapi.Store', {
+        userStoryStore = Ext.create('Rally.data.wsapi.Store', {
                                                                 model: 'User Story',
                                                                 listeners: {
                                                                         load: function(store, data, success) {
