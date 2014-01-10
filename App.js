@@ -21,7 +21,7 @@ Ext.define('CustomApp', {
         var app = this;
         var i;
 	var projectComboBox, addUserStoryPanel, userStoryStore;
-	var currentBaseName, currentCount, userStoryName;
+	var currentCount=10, currentBaseName = '';
 
         projectComboBox = Ext.widget('rallycombobox', {
                                         fieldLabel: 'Project: ',
@@ -35,21 +35,21 @@ Ext.define('CustomApp', {
                                 title: 'Create User Stories',
                                 items: [
                                         {xtype: 'rallytextfield',
-/*
-					 listeners: [{change: function(this, newValue, oldValue, eOpts) {
-							  console.log('Count field changed from ', oldValue, ' to ', newValue);
-                                                          userStoryName = newValue;
-                                                      }}],
-*/
+					 listeners: {
+                                              change: function(field, newValue, oldValue, eOpts) {
+                                                           console.log('Basename field changed from ', oldValue, ' to ', newValue);
+                                                           currentBaseName = newValue;
+                                                      }
+                                         },
                                          fieldLabel: 'BaseName: '},
                                         {xtype: 'rallynumberfield',
                                          fieldLabel: 'Count: ',
-/*
-					 listeners: [{change: function(this, newValue, oldValue, eOpts) {
-							  console.log('Count field changed from ', oldValue, ' to ', newValue);
-                                                          currentCount = newValue;
-                                                      }}],
-*/
+					 listeners: {
+                                              change: function(field, newValue, oldValue, eOpts) {
+                                                           console.log('Count field changed from ', oldValue, ' to ', newValue);
+                                                           currentCount = newValue;
+                                                      }
+                                         },
                                          minValue: 1,
                                          maxValue: 99,
                                          value: 10},
@@ -60,8 +60,8 @@ Ext.define('CustomApp', {
                                                           // Do the business
                                                           console.log('Button pressed');
                                                           for (i = 1; i <= currentCount; i++) {
-                                                              name = currentBaseName + i;
-                                                              console.log('Creating user story: ', storyName); 
+                                                              userStoryName = currentBaseName + i;
+                                                              console.log('Creating user story: ', userStoryName); 
                                                           }
                                                         }
                                                 }]}
